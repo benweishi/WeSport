@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="background_green">#dcf28e</color>
+    <color name="box_green">#51ef71</color>
+    <color name="box_grayBlue">#94a4b2</color>
+    <color name="text_brown">#702905</color>
+
 </resources>
