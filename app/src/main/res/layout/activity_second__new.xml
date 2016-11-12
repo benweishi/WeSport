@@ -29,6 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="63dp">
 
+        <ListView
+            android:layout_width="16dp"
+            android:layout_height="16dp" />
+
         <TextView android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,37 +46,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="130dp"
             android:layout_marginTop="5dp"
-            android:background="@color/box_green"
-            android:text="Match Name" />
+            android:background="@color/box_grayBlue"
+            android:text="Round" />
+
     </LinearLayout>
 
 
-
-    <Button android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="70dp"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="50dp"
-        android:text="New Match" />
-    <Button android:id="@+id/button2"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="70dp"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="25dp"
-        android:text="Join Game" />
-
-    <EditText
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:layout_marginRight="70dp"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="25dp"
-        android:text="Player Name"
-        android:ems="10"
-        android:id="@+id/editText" />
 </LinearLayout>
