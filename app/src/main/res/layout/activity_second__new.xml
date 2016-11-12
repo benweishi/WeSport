@@ -11,7 +11,8 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="50dp"
         android:background="@color/box_green"
-        android:text="Match Name" />
+        android:text="Match Name"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="98dp"
@@ -29,29 +30,42 @@
         android:layout_width="match_parent"
         android:layout_height="63dp">
 
-        <ListView
-            android:layout_width="16dp"
-            android:layout_height="16dp" />
-
         <TextView android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_marginLeft="25dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="147dp"
             android:layout_marginTop="5dp"
             android:background="@color/box_grayBlue"
             android:textColor="@color/text_brown"
-            android:text="Match Name" />
-        <TextView android:id="@+id/text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/box_grayBlue"
-            android:text="Round" />
+            android:text="Games" />
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:text="@string/baseball"
+        android:onClick="sendMessage" />
+
+    <Button
+        android:text="Basketball"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4" />
+
+    <Button
+        android:text="Running"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button5" />
+
+    <Button
+        android:text="Dodge Ball"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button6" />
 
 
 </LinearLayout>
