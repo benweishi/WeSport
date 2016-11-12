@@ -19,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Second_New"></activity>
+        <activity android:name=".Second_New" />
+        <activity
+            android:name=".SencorTest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_sencor_test"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
