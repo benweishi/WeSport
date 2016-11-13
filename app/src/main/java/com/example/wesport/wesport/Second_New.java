@@ -13,8 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.provider.AlarmClock;
-
-
+import android.widget.Toast;
 
 
 public class Second_New extends AppCompatActivity {
@@ -22,11 +21,20 @@ public class Second_New extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button button3;
         super.onCreate(savedInstanceState);
-        setContentView(Second_New.layout.activity_second__new);
+        setContentView(android.R.layout.activity_second__new);
+        button3 = (Button)findViewById(R.id.button3);
+        button3.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast.makeText(getBaseContext(),"You click on second button", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void sendMessage(View view) {
+        Toast.makeText(getBaseContext(),"You click on first button", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, Second_New.class);
         EditText editText = (EditText) findViewById(R.id.button3);
         String message = editText.getText().toString();
