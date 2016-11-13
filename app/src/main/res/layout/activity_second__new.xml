@@ -36,9 +36,8 @@
             android:textSize="30dp"
             android:layout_marginLeft="147dp"
             android:layout_marginTop="5dp"
-            android:background="@color/box_grayBlue"
             android:textColor="@color/text_brown"
-            android:text="Games" />
+            android:text="Games:" />
 
     </LinearLayout>
 
@@ -47,19 +46,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:text="@string/baseball"
-        android:onClick="sendMessage" />
-
-    <Button
-        android:text="Basketball"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button4" />
-
-    <Button
-        android:text="Running"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button5" />
+        android:onClick="newPitch" />
 
     <Button
         android:text="Dodge Ball"

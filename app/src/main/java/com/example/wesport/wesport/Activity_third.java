@@ -13,16 +13,11 @@ public class Activity_third extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.Activity_Third);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(Second_New.message);
         TextView textView = new TextView(this);
         textView.setTextSize(40);
-        textView.setText(message);
 
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_message);
-        layout.addView(textView);
     }
 
 }

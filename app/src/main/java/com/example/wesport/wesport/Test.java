@@ -6,7 +6,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,31 +14,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SensorTest extends AppCompatActivity implements SensorEventListener {
+public class Test extends AppCompatActivity implements SensorEventListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
-    private SensorManager mSensorManager;
-    private Sensor mAcc;
-    private double maxAcc;
-    private float[] pVector = {0,0,0};
-    private double pv;
-    private double maxDiff;
-    private double bias = 25;
-    private double scale = 50;
-    private int distance = 0;
-    private boolean Throughen = false;
-    private int speed = 0;
-    TextView TVDistant;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -53,6 +37,15 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+
+    private SensorManager mSensorManager;
+    private Sensor mAcc;
+
+    private int move = 0;
+
+    private TextView acc0;
+    private TextView acc1;
+    private TextView acc2;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -77,11 +70,6 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
             hide();
         }
     };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
     private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -96,22 +84,32 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_sencor_test);
-
-
+        setContentView(R.layout.activity_test);
 
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-
-        TVDistant = (TextView) findViewById(R.id.textViewDistant);
-        maxAcc = 0;
-        maxDiff = 0;
-        pv = 0;
-
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        acc0 = (TextView) findViewById(R.id.acc0);
+        acc1 = (TextView) findViewById(R.id.acc1);
+        acc2 = (TextView) findViewById(R.id.acc2);
+    }
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        // The light sensor returns a single value.
+        // Many sensors return 3 values, one for each axis.
+        float[] vector = {event.values[0],event.values[1],event.values[2]};
+        acc0.setText(String.valueOf(vector[0]));
+        acc1.setText(String.valueOf(vector[1]));
+        acc2.setText(String.valueOf(vector[2]));
     }
 
     @Override
@@ -125,59 +123,6 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
     }
 
     @Override
-    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-    }
-
-    @Override
-    public final void onSensorChanged(SensorEvent event) {
-        // The light sensor returns a single value.
-        // Many sensors return 3 values, one for each axis.
-        float[] vector = {event.values[0],event.values[1],event.values[2]};
-        float[] vectorDiff = {vector[0]-pVector[0],vector[1]-pVector[1],vector[2]-pVector[2]};
-        double v = vectorDiff[0]*vectorDiff[0]+vectorDiff[1]*vectorDiff[1]+vectorDiff[2]*vectorDiff[2];
-        v = Math.sqrt(v);
-        if (v > maxAcc) {
-            maxAcc = v;
-        }
-        double diff = Math.abs(pv-v);
-        if (diff > maxDiff) {
-            maxDiff = diff;
-        }
-        if (maxAcc+maxDiff*2>35 && !Throughen){
-            speed = (int)(maxAcc+maxDiff)/2;
-            fly((int)((maxAcc+maxDiff - bias)*scale));
-            Throughen = true;
-        }
-        pv=v;
-        pVector = vector;
-        // Do something with this sensor value.
-    }
-
-    private void fly(int score) {
-        distance = 0;
-        Timer stop = new Timer();
-        final Timer fly = new Timer();
-        fly.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                distance += speed;
-                mHandler.obtainMessage(1).sendToTarget();
-            }
-        },0, 50);
-        stop.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                fly.cancel();
-            }
-        }, score);
-    }
-    public Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            TVDistant.setText(String.valueOf(distance));
-        }
-    };
-    @Override
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(this, mAcc, SensorManager.SENSOR_DELAY_NORMAL);
@@ -188,7 +133,6 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
         super.onPause();
         mSensorManager.unregisterListener(this);
     }
-
 
     private void hide() {
         // Hide UI first
@@ -202,6 +146,7 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
+
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
      * previously scheduled calls.
@@ -209,12 +154,5 @@ public class SensorTest extends AppCompatActivity implements SensorEventListener
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
-
-    public void reset(View view) {
-        maxAcc = 0;
-        maxDiff = 0;
-        Throughen = false;
-        TVDistant.setText("0");
     }
 }

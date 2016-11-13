@@ -6,4 +6,6 @@
 
     <string name="baseball">Baseball Pitch</string>
     <string name="title_activity_sencor_test">SencorTest</string>
+
+    <string name="title_activity_test">Test</string>
 </resources>
